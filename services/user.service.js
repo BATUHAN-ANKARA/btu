@@ -51,3 +51,55 @@ exports.changePassword = async (req) => {
     throw new Error(error.message);
   }
 };
+
+exports.getUserById = async (req) => {
+  try {
+    const { id } = req.params;
+    const json = await User.findById(id);
+    if (json && json != null && json != undefined) {
+      return json;
+    } else {
+      throw new Error("Kullanıcı bulunamadı.");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getAllUsers = async () => {
+  try {
+    const json = await User.find();
+    return json;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.getUserByName = async (req) => {
+  try {
+    const { name } = req.params;
+    const json = await User.find({ name: name });
+    if (json && json.length > 0) {
+      return json;
+    } else {
+      throw new Error("Kullanıcı bulunamadı.");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+exports.updateUser = async (req) => {
+  try {
+    const { id } = req.params;
+    const { name, surname } = req.body;
+    const json = await User.findByIdAndUpdate(
+      id,
+      { name, surname },
+      { new: true }
+    );
+    return json;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

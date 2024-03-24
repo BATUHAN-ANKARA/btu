@@ -72,3 +72,99 @@ exports.changePassword = async (req, res) => {
     });
   }
 };
+
+exports.getUserById = async (req, res) => {
+  try {
+    const json = await userService.userService.getUserById(req);
+    res.status(StatusCodes.OK).json({
+      ...baseResponse,
+      data: json,
+      success: true,
+      timestamp: Date.now(),
+      code: StatusCodes.OK,
+      message: "Kullanıcı bilgileri getirildi.",
+    });
+  } catch (error) {
+    let errorCode = error.message === "Şifre veya e-posta hatalı." ? 400 : 500;
+    res.status(errorCode).json({
+      ...baseResponse,
+      success: false,
+      error: true,
+      timestamp: Date.now(),
+      code: errorCode,
+      message: error.message,
+    });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const json = await userService.userService.getAllUsers(req);
+    res.status(StatusCodes.OK).json({
+      ...baseResponse,
+      data: json,
+      success: true,
+      timestamp: Date.now(),
+      code: StatusCodes.OK,
+      message: "Tüm kullanıcı bilgileri getirildi.",
+    });
+  } catch (error) {
+    let errorCode = error.message === "Şifre veya e-posta hatalı." ? 400 : 500;
+    res.status(errorCode).json({
+      ...baseResponse,
+      success: false,
+      error: true,
+      timestamp: Date.now(),
+      code: errorCode,
+      message: error.message,
+    });
+  }
+};
+
+exports.getUserByName = async (req, res) => {
+  try {
+    const json = await userService.userService.getUserByName(req);
+    res.status(StatusCodes.OK).json({
+      ...baseResponse,
+      data: json,
+      success: true,
+      timestamp: Date.now(),
+      code: StatusCodes.OK,
+      message: "Kullanıcı bilgileri getirildi.",
+    });
+  } catch (error) {
+    let errorCode = error.message === "Şifre veya e-posta hatalı." ? 400 : 500;
+    res.status(errorCode).json({
+      ...baseResponse,
+      success: false,
+      error: true,
+      timestamp: Date.now(),
+      code: errorCode,
+      message: error.message,
+    });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  try {
+    const json = await userService.userService.updateUser(req);
+    res.status(StatusCodes.OK).json({
+      ...baseResponse,
+      data: json,
+      success: true,
+      timestamp: Date.now(),
+      code: StatusCodes.OK,
+      message: "Kullanıcı bilgileri güncellendi.",
+    });
+  } catch (error) {
+    let errorCode = error.message === "Şifre veya e-posta hatalı." ? 400 : 500;
+    res.status(errorCode).json({
+      ...baseResponse,
+      success: false,
+      error: true,
+      timestamp: Date.now(),
+      code: errorCode,
+      message: error.message,
+    });
+  }
+};
