@@ -25,12 +25,28 @@ exports.login = async (req) => {
   try {
     let { password, email } = req.body;
     let _password = md5(password);
-    const json = await User.find({email: email, password: _password});
+    const json = await User.find({ email: email, password: _password });
     if (json.length === 0 || json === null || json === undefined) {
-      throw new Error("Şifre veya e-posta hatalı.")
+      throw new Error("Şifre veya e-posta hatalı.");
     } else {
-      return json
+      return json;
     }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+exports.changePassword = async (req) => {
+  try {
+    let { password } = req.body;
+    let userId = req.params.id;
+    let _password = md5(password);
+    const json = await User.findByIdAndUpdate(
+      userId,
+      { password: _password },
+      { new: true }
+    );
+    return json;
   } catch (error) {
     throw new Error(error.message);
   }

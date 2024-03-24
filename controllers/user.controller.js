@@ -11,6 +11,7 @@ exports.register = async (req, res) => {
       success: true,
       timestamp: Date.now(),
       code: StatusCodes.CREATED,
+      message: "Kayıt başarılı.",
     });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -27,13 +28,37 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const json = await userService.userService.login(req);
-    console.log(Date.now());
     res.status(StatusCodes.OK).json({
       ...baseResponse,
       data: json,
       success: true,
       timestamp: Date.now(),
       code: StatusCodes.OK,
+      message: "Giriş başarılı.",
+    });
+  } catch (error) {
+    let errorCode = error.message === "Şifre veya e-posta hatalı." ? 400 : 500;
+    res.status(errorCode).json({
+      ...baseResponse,
+      success: false,
+      error: true,
+      timestamp: Date.now(),
+      code: errorCode,
+      message: error.message,
+    });
+  }
+};
+
+exports.changePassword = async (req, res) => {
+  try {
+    const json = await userService.userService.changePassword(req);
+    res.status(StatusCodes.OK).json({
+      ...baseResponse,
+      data: json,
+      success: true,
+      timestamp: Date.now(),
+      code: StatusCodes.OK,
+      message: "Şifreniz başarıyla değiştirildi.",
     });
   } catch (error) {
     let errorCode = error.message === "Şifre veya e-posta hatalı." ? 400 : 500;
