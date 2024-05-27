@@ -1,4 +1,4 @@
-# Email Kuyruk Sistemi
+# Basit Mimari
 
 Bu proje, Node.js, Express ve MongoDb kullanarak basit bir backend sistemi örneğini göstermektedir. Bu repo Bursa Teknik Üniversitesi bilgisayar mühendisliği bölümü öğrencilerine örnek olması, bir başlangıç noktası olabilmesi için yayınlanmıştır.
 
